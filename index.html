@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Comic Sans MS, sans-serif;
+        color: #738000;
+        background-color: #b52020;
+        padding: 14px;
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px #aaa;
+      }
+
+      img {
+        width:800px;
+        height: 400px;
+        display: block;
+        margin: 0 auto;
+      }
+
+      input[type="button"]:hover {
+        background-color: #ddd;
+      }
+
+      .bordered {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin: 10px 0;
+      }
+
+      #success {
+        display: none;
+        color: green;
+        margin-top: 15px;
+      }
+
+      .checkbox {
+        margin: 10px 0;
+      }
+    </style>
+    <title>Резюме</title>
+  </head>
+  <body>
+    <h1>Мое резюме</h1>
+    <img src="MyPhoto.jpg" alt="Фото" />
+    <div id="name" class="bordered">
+      Имя: <span id="firstName">Александр</span>
+    </div>
+    <div id="surname" class="bordered">
+      Фамилия: <span id="lastName">Сапожников</span>
+    </div>
+    <div class="bordered">Возраст: <span id="age">24</span></div>
+
+    <div id="form">
+      <input type="text" id="newFirstName" placeholder="Новое имя" />
+      <input type="text" id="newFName" placeholder="Новая фамилия" />
+      <input type="text" id="newAge" placeholder="Новый возраст" />
+      <input type="text" id="Pol" placeholder="Пол" />
+      <div class="checkbox">
+        <label
+          ><input type="checkbox" id="checkbox" /> Я согласен с условиями</label
+        >
+      </div>
+      <textarea id="text" placeholder="Ваш комментарий"></textarea>
+      <input type="button" value="Заполнить анкету" onclick="fillForm()" />
+      <input
+        type="button"
+        value="Изменить цвет фона"
+        onclick="changeBgColor()"
+      />
+    </div>
+    <div id="success">Анкета заполнена!</div>
+
+    <script>
+      var UserName;
+      while (true) {
+        UserName = prompt("Введите ваше имя");
+        if (UserName != null) {
+          if (confirm("Вы " + UserName + "?")) {
+            break;
+          }
+        } else {
+          alert("Пожалуйста, введите ваше имя.");
+        }
+      }
+      alert("Спасибо!");
+
+      function fillForm() {
+        var newFirstName = document.getElementById("newFirstName").value;
+        var newFName = document.getElementById("newFName").value;
+        var newAge = document.getElementById("newAge").value;
+        var checkbox = document.getElementById("checkbox").checked;
+
+        if (!newFirstName.match(/^[a-zA-Zа-яА-Я]+$/)) {
+          alert("Имя должно содержать только буквы");
+          return;
+        }
+        if (!newFName.match(/^[a-zA-Zа-яА-Я]+$/)) {
+          alert("Фамилия должна содержать только буквы");
+          return;
+        }
+
+        if (!newAge.match(/^[0-9]+$/) || newAge <= 0) {
+          alert("Возраст должен быть положительным числом");
+          return;
+        }
+
+        if (!checkbox) {
+          alert("Необходимо согласиться с условиями");
+          return;
+        }
+
+        document.getElementById("firstName").textContent = newFirstName;
+        document.getElementById("lastName").textContent = newFName;
+        document.getElementById("age").textContent = newAge;
+        document.getElementById("form").style.display = "none";
+        document.getElementById("success").style.display = "block";
+      }
+      function changeBgColor() {
+        var randomColor =
+          "#" + Math.floor(Math.random() * 16777215).toString(16);
+        document.body.style.backgroundColor = randomColor;
+      }
+    </script>
+  </body>
+</html>
